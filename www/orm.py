@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import asyncio, logging
+import asyncio
+import logging
 import aiomysql
-from www import config
+
+from www.model.user import User
 
 
 def log(sql, args=()):
@@ -86,10 +88,12 @@ if __name__ == '__main__':
     dbconfig = {
         'host': '127.0.0.1',
         'port': 3306,
-        'user': 'root',
+        'user': 'www-data',
         'password': '65535',
-        'db': 'sys'
+        'db': 'awesome'
     }
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(create_pool(loop=loop, **dbconfig))
+    loop.set_debug(True)
+    logging.getLogger("asyncio").setLevel(logging.WARNING)
+    asyncio.run_coroutine_threadsafe(loop, create_pool(loop=loop, **dbconfig))
     loop.run_forever()
