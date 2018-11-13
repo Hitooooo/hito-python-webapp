@@ -152,7 +152,7 @@ class RequestHandler(object):
         # check required kw:
         if self._required_kw_args:
             for name in self._required_kw_args:
-                # TODO
+                # 如果前端传过来的参数中，响应方法中并没有拿到想要的参数
                 if name not in kw:
                     return web.HTTPBadRequest('Missing argument: %s' % name)
         logging.info('call with args: %s' % str(kw))
